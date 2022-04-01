@@ -16,12 +16,17 @@ jobs:
     runs-on: ubuntu-18.04
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
       - name: build
         run: |
           npm install
           npm run build
-      - uses: shinyinc/action-aws-cli@v1.2
+
+      - name: Checkout AWS
+        uses: shinyinc/action-aws-cli@v1.2
+
       - name: syncAWS
         run: aws s3 sync dist s3://${{ secrets.AWS_S3_BUCKET_NAME }}/container/latest
         env:
