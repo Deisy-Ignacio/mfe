@@ -14,7 +14,6 @@ defaults:
 jobs:
   build:
     runs-on: ubuntu-18.04
-
     steps:
       - name: build
         uses: actions/checkout@v2
@@ -22,6 +21,9 @@ jobs:
           npm install
           npm run build
 
+  aws:
+    runs-on: ubuntu-18.04
+    steps:
       - name: syncAWS
         uses: shinyinc/action-aws-cli@v1.2
         run: aws s3 sync dist s3://${{ secrets.AWS_S3_BUCKET_NAME }}/container/latest
